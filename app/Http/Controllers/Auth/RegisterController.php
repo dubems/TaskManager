@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -63,9 +63,27 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'password'  => bcrypt($data['password']),
+            'verify_token' => $this->generateVerificationToken()
         ]);
+    }
+
+    /**
+     * Generate verification token for the user
+     */
+    public function generateVerificationToken()
+    {
+        $pool = array_merge(range(0,9),range('a','z'),range('A','Z'));
+
+        shuffle($pool);
+
+        $sliced = array_slice($pool,0,10);
+
+        return  implode('',$sliced);
+
+
+
     }
 }
