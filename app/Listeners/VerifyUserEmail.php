@@ -5,6 +5,7 @@ namespace App\Listeners;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Mail;
 
 class VerifyUserEmail
 {
@@ -13,9 +14,8 @@ class VerifyUserEmail
      *
      * @param Registered $event
      */
-    public function __construct(Registered $event)
+    public function __construct()
     {
-        $this->user = $event->user;
     }
 
     /**
@@ -27,5 +27,7 @@ class VerifyUserEmail
     public function handle(Registered $event)
     {
 
+        Mail::to($event->user->email)
+            ->send(new \App\Mail\VerifyUserEmail($event->user));
     }
 }

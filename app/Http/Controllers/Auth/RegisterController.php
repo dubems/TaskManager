@@ -82,8 +82,7 @@ class RegisterController extends Controller
         $sliced = array_slice($pool,0,10);
 
         return  implode('',$sliced);
-
-
+        
 
     }
 }

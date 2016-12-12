@@ -32,6 +32,13 @@
                                 @endforeach
                         </div>
                         @endif
+
+                        @if(!empty($message))
+                        <div class="alert alert-success">
+                          <span>{{$message}}</span>
+                        </div>
+                        @endif
+
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="">Name</label>

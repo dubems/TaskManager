@@ -24,6 +24,10 @@ Route::group(['middleware'=>'web'],function()
         return view('register');
     })->name('register');
 
+//    Route::get('/register/success','Auth\RegisterController@getRegisterSuccess');
+
+
 
     Route::post('/auth/register','Auth\RegisterController@register')->name('signup');
+
 });
