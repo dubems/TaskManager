@@ -24,7 +24,7 @@ Route::group(['middleware'=>'web'],function()
         return view('register');
     })->name('register');
 
-//    Route::get('/register/success','Auth\RegisterController@getRegisterSuccess');
+    Route::get('/register/success','Auth\RegisterController@getRegisterSuccess');
 
 
 

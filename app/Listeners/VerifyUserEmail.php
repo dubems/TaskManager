@@ -27,7 +27,18 @@ class VerifyUserEmail
     public function handle(Registered $event)
     {
 
-        Mail::to($event->user->email)
-            ->send(new \App\Mail\VerifyUserEmail($event->user));
+
+        try {
+            Mail::to($event->user->email)
+                ->send(new \App\Mail\VerifyUserEmail($event->user));
+        }
+        catch(\Exception $e) {
+
+        
+        }
+
+        finally {
+            return true;
+        }
     }
 }
