@@ -25,7 +25,7 @@ Route::group(['middleware'=>'web'],function()
     })->name('register');
 
     Route::get('/register/success','Auth\RegisterController@getRegisterSuccess');
-
+    Route::get('/auth/register/{token}','Auth\RegisterController@verifyToken');
 
 
     Route::post('/auth/register','Auth\RegisterController@register')->name('signup');

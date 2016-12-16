@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Repositories\UserRegistry;
 use App\User;
+use Auth;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -28,15 +30,20 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/dashboard';
+    /**
+     * @var UserRegistry
+     */
+    private $userRegistry;
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param UserRegistry $userRegistry
      */
-    public function __construct()
+    public function __construct(UserRegistry $userRegistry)
     {
-        $this->middleware('guest');
+//        $this->middleware('guest');
+        $this->userRegistry = $userRegistry;
     }
 
     /**
@@ -82,7 +89,32 @@ class RegisterController extends Controller
         $sliced = array_slice($pool,0,10);
 
         return  implode('',$sliced);
-        
+
+    }
+
+    /**
+     * Activate Users account after registration
+     *
+     * @param $token
+     */
+
+    public function  verifyToken($token)
+    {
+        $user =  $this->userRegistry->activateUser($token);
+
+        if(!$user)
+        {
+            abort(503);
+        }
+
+        return $this->login($user);
+
+    }
+
+    public function login($user)
+    {
+        Auth::login($user);
+        return redirect('/home');
 
     }
 }
