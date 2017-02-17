@@ -111,6 +111,13 @@ class RegisterController extends Controller
 
     }
 
+    /**
+     *
+     * Login the users
+     * 
+     * @param $user
+     * @return mixed
+     */
     public function login($user)
     {
         Auth::login($user);
